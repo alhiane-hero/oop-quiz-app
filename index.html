@@ -4,50 +4,40 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="...">
-    <title>Recipe App</title>
+    <title>Quiz App</title>
     <link rel="stylesheet" href="css/all.min.css">
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
 
-    <!-- main section: -->
-    <section>
-        <div class="container">
-            <div class="main-box">
-                <form action="#" id="form">
-                    <input type="search" id="searchInput" placeholder="Meal...">
-                    <button aria-label="search btn" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </form>
-                <div class="fav-meals-box">
-                    <h2>Favorites Meals</h2>
-                    <div class="fav-meals" id="favMeals"></div>
-                </div>
-                <div class="random-meals" id="meals"></div>
+    <div class="container">
+        <div class="quiz" id="quiz">
+            <h1>Quiz App</h1>
+            <hr>
+            <p id="question"></p>
+            <div class="btns">
+                <button class="btn" id="btn0" data-index='0'>
+                    <span id="choice0"></span>
+                </button>
+                <button class="btn" id="btn1" data-index='1'>
+                    <span id="choice1"></span>
+                </button>
+                <button class="btn" id="btn2" data-index='2'>
+                    <span id="choice2"></span>
+                </button>
+                <button class="btn" id="btn3" data-index='3'>
+                    <span id="choice3"></span>
+                </button>
             </div>
+            <hr>
+            <footer id="progress">
+                Question 2 Of 5
+            </footer>
         </div>
-    </section>
-
-    <!-- popup: -->
-    <div class="popup" id="popup">
-        <div class="container">
-            <div class="mealInfo" id="mealInfo"></div>
-        </div>
-        <button id="closePopup">
-            <i class="fas fa-times"></i>
-        </button>
     </div>
 
-    <script type="module" src="js/apis.js"></script>
-    <script type="module" src="js/searchForMeals.js"></script>
-    <script type="module" src="js/getAllFavMeals.js"></script>
-    <script type="module" src="js/createMealInfoStr.js"></script>
-    <script type="module" src="js/createFavMeal.js"></script>
-    <script type="module" src="js/importantFunc.js"></script>
-    <script type="module" src="js/createRandomMeal.js"></script>
-    <script type="module" src="js/localStorage.js"></script>
+    <script type="module" src="js/quiz.js"></script>
+    <script type="module" src="js/question.js"></script>
     <script type="module" src="js/index.js"></script>
 </body>
 </html>

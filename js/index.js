@@ -1,25 +1,74 @@
-import {getRandomMeals} from './apis.js';
-import getAllFavMeals from './getAllFavMeals.js';
-import searchForMeals from './searchForMeals.js';
+import Question from './question.js';
+import Quiz from './quiz.js';
 
-const formEl = document.getElementById('form');
-const searchInput = document.getElementById('searchInput');
-const popupEl = document.getElementById('popup');
-const closePopup = document.getElementById('closePopup');
+function populate() {
+    if (quiz.isEnded() === true) {
+        showScores();
+    } else {
+        const questionEl = document.getElementById('question');
+        questionEl.innerHTML = quiz.getQuestionByIndex().text;
 
-// get random meals:
-getRandomMeals();
+        let choices = quiz.getQuestionByIndex().choices;
+        for (let i = 0; i < choices.length; i++) {
+            const choiceEl = document.getElementById(`choice${i}`);
+            choiceEl.innerHTML = choices[i];
+        }
+    }
+    showProgress();
+}
 
-// close meal info popup:
-closePopup.addEventListener('click', _ => popupEl.classList.remove('show'));
-
-// get all favorite meals:
-getAllFavMeals();
-
-// submit form:
-formEl.addEventListener('submit', event => {
-    event.preventDefault();
-    searchForMeals();
-    searchInput.value = '';
-    searchInput.focus();
+const btns = document.querySelectorAll('.btn');
+btns.forEach(btn => {
+    btn.addEventListener('click', function () {
+        let index = parseInt(btn.getAttribute('data-index'));
+        let choices = quiz.getQuestionByIndex().choices;
+        quiz.guess(choices[index]);
+        console.log(choices[index]);
+        populate();
+    });
 });
+
+function showProgress() {
+    const progressEl = document.getElementById('progress');
+    progressEl.innerHTML = `Question 
+    ${quiz.indexOfQuestion} Of 
+    ${quiz.questions.length}`;
+}
+
+function showScores() {
+    document.getElementById('quiz').innerHTML = `
+        <h2>Your Score: ${quiz.score}</h2>
+    `;
+}
+
+const questions = [
+    new Question(
+        'Which one is not an object oriented programming language?',
+        ['Java', 'C#', 'c++', 'C'],
+        'C'
+    ),
+    new Question(
+        'Which language is used for styling web pages?',
+        ['Html', 'Css', 'Xml', 'JavaScript'],
+        'Css'
+    ),
+    new Question(
+        'Ther are ___ main components object oriented programming?',
+        ['1', '2', '3', '4'],
+        '4'
+    ),
+    new Question(
+        'Which language is used for web apps?',
+        ['Php', 'Python', 'JavaScript', 'All'],
+        'All'
+    ),
+    new Question(
+        'Mvc is a ___?',
+        ['Language', 'Library', 'Framwork', 'Pattern'],
+        'Pattern'
+    ),
+];
+
+const quiz = new Quiz(questions);
+
+populate();
